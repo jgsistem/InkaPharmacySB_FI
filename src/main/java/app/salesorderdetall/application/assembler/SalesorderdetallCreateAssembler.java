@@ -69,7 +69,7 @@ public class SalesorderdetallCreateAssembler  {
 			map().setSale_order_id(source.getSale_order_id());
 			map().setProduct_id(source.getProduct_id());
 			map().setQuantity(source.getQuantity());
-			map().setPrice(source.getPrice());
+		//	map().setPrice(source.getPrice());
 			map().setCurrency(source.getCurrency());
 			map().setStatus(source.getStatus());
 		  }
