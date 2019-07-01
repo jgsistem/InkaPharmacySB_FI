@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Date;
 import javax.transaction.Transactional;
@@ -14,6 +15,8 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import app.product.domain.entity.Product;
 import app.salesorder.application.assembler.SalesorderCreateAssembler;
 import app.salesorder.application.dao.SalesorderDAO;
 import app.salesorder.application.dto.SalesorderAllCreateDto;
@@ -74,21 +77,41 @@ public class SalesorderService {
 		salesorder.setEmployee_id(salesorderCreateDtoall.getEmployee_id());
 		salesorder.setStatus(salesorderCreateDtoall.getStatus());			
 		List<Saleorderdetall> saleorderdetall = new ArrayList<>();		
-		for (Saleorderdetall purchaseorderdetallListDtou : salesorderCreateDtoall.getSalesorderdetall()) {
+		List<Product> listaProducto =  new ArrayList<Product>();
 		
-			Saleorderdetall purchaseorderdetallListDtoTem = new Saleorderdetall();			
+		for (Saleorderdetall purchaseorderdetallListDtou : salesorderCreateDtoall.getSalesorderdetall()) {		
+			Saleorderdetall purchaseorderdetallListDtoTem = new Saleorderdetall();	
+			Product Productlis = new Product();			
 			purchaseorderdetallListDtoTem.setSale_order_id(purchaseorderdetallListDtou.getSale_order_id());
 			purchaseorderdetallListDtoTem.setProduct_id(purchaseorderdetallListDtou.getProduct_id());
 			purchaseorderdetallListDtoTem.setQuantity(purchaseorderdetallListDtou.getQuantity());
 			purchaseorderdetallListDtoTem.setPrice(purchaseorderdetallListDtou.getPrice());
 			purchaseorderdetallListDtoTem.setCurrency(purchaseorderdetallListDtou.getCurrency());
-			purchaseorderdetallListDtoTem.setStatus(purchaseorderdetallListDtou.getStatus());			
+			purchaseorderdetallListDtoTem.setStatus(purchaseorderdetallListDtou.getStatus());							
+			Productlis.setProduct_id(purchaseorderdetallListDtou.getProduct_id());
+			Productlis.setStock(purchaseorderdetallListDtou.getQuantity());			
+			listaProducto.add(Productlis);			
 			saleorderdetall.add(purchaseorderdetallListDtoTem);		
 		}	
 		
+		List<Product> listaProductoF =  new ArrayList<Product>();
+		Iterator<Product> itProductActualiza = listaProducto.iterator();
+	
+		while (itProductActualiza.hasNext())			
+		{
+			Product productActu = itProductActualiza.next();
+			Product Productlis = new Product();
+			Productlis.setProduct_id(productActu.getProduct_id());						
+			Product listadoProBD = salesorderDAO.getIdProduct(productActu.getProduct_id(),productActu.getStock());			
+			Productlis.setStock(listadoProBD.getStock() - productActu.getStock());			
+			listaProductoF.add(Productlis);	
+		}		
+		
+		    salesorderDAO.updateProducto(listaProductoF);		    
 			salesorder.setSalesorderdetall(saleorderdetall);		
 			int intOrder = salesorderDAO.saveSaveorderAll(salesorder);		
-			salesorderDAO.saveSaveorderdAll(saleorderdetall,intOrder);		
+			salesorderDAO.saveSaveorderdAll(saleorderdetall,intOrder);	
+			
 			return ResponseEntity.ok().body("ok");		
 	}
 	

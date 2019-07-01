@@ -40,6 +40,7 @@ app\purchaseorder\domain\entity\Purchaseorder.class
 app\salesorder\api\controller\SalesorderController.class
 app\salesorderdetall\application\dao\SalesorderdetallDAO$1.class
 app\pucharseorderdetall\application\dao\PurchaseorderdetallDAO$1.class
+app\salesorder\application\dao\SalesorderDAO$2.class
 app\salesorder\application\validation\SalesorderCreateValidation.class
 app\salesorderdetall\domain\entity\Saleorderdetall.class
 app\common\domain\valueobject\MoneyNull.class
@@ -60,6 +61,7 @@ app\salesorderdetall\application\dto\SalesorderdetallListDto.class
 app\salesorder\application\dto\SalesorderCreateDto.class
 app\salesorder\application\dto\SalesorderDto.class
 app\pucharseorderdetall\application\assembler\PurchaseorderdetallCreateAssembler$1.class
+app\product\domain\entity\Product.class
 app\ApplicationContextHolder.class
 app\salesorder\infrastructure\persistence\hibernate\SalesorderHibernateRepository.class
 app\salesorder\application\assembler\SalesorderCreateAssembler.class

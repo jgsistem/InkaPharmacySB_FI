@@ -19,8 +19,11 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
+
+import app.product.domain.entity.Product;
 import app.salesorder.domain.entity.Salesorder;
 import app.salesorder.domain.entity.SalesorderAll;
+import app.salesorderdetall.application.dto.SalesorderdetallListDto;
 import app.salesorderdetall.domain.entity.Saleorderdetall;
 
 @Service
@@ -32,7 +35,6 @@ public class SalesorderDAO implements ISalesorderDAO {
 	public void setDataSource(DataSource dataSource) {
 		template = new JdbcTemplate(dataSource);
 	}
-	
 	
 
 	@Override
@@ -51,10 +53,8 @@ public class SalesorderDAO implements ISalesorderDAO {
 		 String sql="INSERT INTO sale_order_detail (sale_order_id,product_id,quantity,price,currency,status)"
 			     + "values("+result+","+s.getProduct_id()+","+s.getQuantity()+","+s.getPrice()+",'"+s.getCurrency()+"',"+s.getStatus()+")";
 	System.out.println(sql);
-	template.update(sql);	
-	
-	}
-	
+	template.update(sql);
+	}	
 	
 
 	@Override
@@ -97,15 +97,48 @@ public class SalesorderDAO implements ISalesorderDAO {
 
 	@Override
 	public void saveSaveorderdAll(List<Saleorderdetall> saleorderdetall, int result){		
-		Iterator<Saleorderdetall> itServicio = saleorderdetall.iterator();		
+		Iterator<Saleorderdetall> itServicio = saleorderdetall.iterator();	
+		
 		while (itServicio.hasNext())			
-		{
+		{			
 			Saleorderdetall purchaseorderdetallListDtou = itServicio.next();	
 			 String sql="INSERT INTO sale_order_detail (sale_order_id,product_id,quantity,price,currency,status)"
 			 + "values("+result+","+purchaseorderdetallListDtou.getProduct_id()+","+purchaseorderdetallListDtou.getQuantity()+","+purchaseorderdetallListDtou.getPrice()+",'"+purchaseorderdetallListDtou.getCurrency()+"',"+purchaseorderdetallListDtou.getStatus()+")";
 		    System.out.println(sql);
-		   template.update(sql);
-		}	
+		   template.update(sql);		   
+		}					
 	}
 
+
+	@Override
+	public Product getIdProduct(long idProduct, int stock) {
+		String sql = "SELECT product_id,stock FROM product WHERE  product_id ="+idProduct+"";	   	    
+		System.out.println(sql);
+		return template.query(sql, new ResultSetExtractor<Product>() {
+			public Product extractData(ResultSet rs) throws SQLException, DataAccessException {
+				//Product list = new Product();
+				Product product = new Product();
+				while (rs.next()) {
+					//Product product = new Product();
+					product.setProduct_id(rs.getInt(1));
+					product.setStock(rs.getInt(2));
+					
+				}
+				return product;
+			}
+		});
+	}
+
+
+	@Override
+	public void updateProducto(List<Product> product) {
+		Iterator<Product> itServicioP = product.iterator();		
+		while (itServicioP.hasNext())			
+		{
+			Product producty = itServicioP.next();	
+			String sql="UPDATE product set stock = "+producty.getStock()+" WHERE  product_id ="+producty.getProduct_id()+"";
+		    System.out.println(sql);
+		   template.update(sql);		   
+		}					
+	}	
 }
