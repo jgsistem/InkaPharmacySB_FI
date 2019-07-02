@@ -16,5 +16,5 @@ public interface ISalesorderDAO {
     public void saveSaveorderdAll(List<Saleorderdetall> saleorderdetall,int result);	
 	public List<Salesorder> getallSaveorder(int offset, int limit,String DateFrom, String DateTo);
 	public Product getIdProduct(long idProduct, int stock);	
-    public void updateProducto(List<Product> product);		
+    public void updateProducto(Product product);		
 }

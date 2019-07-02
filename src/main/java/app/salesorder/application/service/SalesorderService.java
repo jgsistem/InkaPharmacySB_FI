@@ -63,6 +63,18 @@ public class SalesorderService {
 		saleorderdetall.setStatus(salesorderCreateDto.getSalesorderdetall().getStatus());
 		salesorder.setSalesorderdetall(saleorderdetall);
 		//int resul = salesorderDAO.saveSaveorder(salesorder);
+		
+		
+			
+			Product Productlis = new Product();
+			Productlis.setProduct_id(salesorderCreateDto.getSalesorderdetall().getProduct_id());						
+			Product listadoProBD = salesorderDAO.getIdProduct(salesorderCreateDto.getSalesorderdetall().getProduct_id(),salesorderCreateDto.getSalesorderdetall().getQuantity());			
+			Productlis.setStock(listadoProBD.getStock() - salesorderCreateDto.getSalesorderdetall().getQuantity());			
+			 salesorderDAO.updateProducto(Productlis);	
+			
+		
+		
+		
 		int resul = salesorderDAO.saveSaveorder(salesorder);		
 		salesorderDAO.saveSaveorderd(saleorderdetall, saleorderdetall.getSale_order_id(),resul);		
 		return ResponseEntity.ok().body("ok");
@@ -94,7 +106,7 @@ public class SalesorderService {
 			saleorderdetall.add(purchaseorderdetallListDtoTem);		
 		}	
 		
-		List<Product> listaProductoF =  new ArrayList<Product>();
+		//List<Product> listaProductoF =  new ArrayList<Product>();
 		Iterator<Product> itProductActualiza = listaProducto.iterator();
 	
 		while (itProductActualiza.hasNext())			
@@ -104,10 +116,10 @@ public class SalesorderService {
 			Productlis.setProduct_id(productActu.getProduct_id());						
 			Product listadoProBD = salesorderDAO.getIdProduct(productActu.getProduct_id(),productActu.getStock());			
 			Productlis.setStock(listadoProBD.getStock() - productActu.getStock());			
-			listaProductoF.add(Productlis);	
+			 salesorderDAO.updateProducto(Productlis);	
 		}		
 		
-		    salesorderDAO.updateProducto(listaProductoF);		    
+		   	    
 			salesorder.setSalesorderdetall(saleorderdetall);		
 			int intOrder = salesorderDAO.saveSaveorderAll(salesorder);		
 			salesorderDAO.saveSaveorderdAll(saleorderdetall,intOrder);	

@@ -131,14 +131,11 @@ public class SalesorderDAO implements ISalesorderDAO {
 
 
 	@Override
-	public void updateProducto(List<Product> product) {
-		Iterator<Product> itServicioP = product.iterator();		
-		while (itServicioP.hasNext())			
-		{
-			Product producty = itServicioP.next();	
-			String sql="UPDATE product set stock = "+producty.getStock()+" WHERE  product_id ="+producty.getProduct_id()+"";
+	public void updateProducto(Product product) {
+		//				
+			String sql="UPDATE product set stock = "+product.getStock()+" WHERE  product_id ="+product.getProduct_id()+"";
 		    System.out.println(sql);
 		   template.update(sql);		   
-		}					
+		//}					
 	}	
 }
