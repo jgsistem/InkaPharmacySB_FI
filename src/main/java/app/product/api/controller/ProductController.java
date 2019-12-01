@@ -30,7 +30,7 @@ public class ProductController {
 	ProductService productService;
 	
 	@CrossOrigin(origins = "*")
-	@RequestMapping(method = RequestMethod.POST, path = "", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+	@RequestMapping(method = RequestMethod.POST, path = "/stock", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 	public ResponseEntity<Object> DescuentoStock(@RequestBody ProductDto productDto) throws Exception {
 		boolean status = false;
 		try {

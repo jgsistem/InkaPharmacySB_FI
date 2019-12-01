@@ -7,41 +7,42 @@ import app.product.domain.entity. Product;
 
 public class ProductDto extends RequestBaseDto{
 
-	private long id;
+	private long product_id;
 	private String name;
 	private Double price;
-	private String currency;
+	private String Currency;
+	private String CurrencyISOCode;
 	private int stock;
 	private long category_id;
-	private String lot_number;
-	private String sanitary_registration_number;
-	private Date lot_registration_datenumber;
-	private Date expiration_date;
+	private String lotNumber;
+	private String sanitaryRegistrationNumber;
+	private Date registrationDate;
+	private Date expirationDate;
 	private int status;
 	private int stock_status;
-	
-	private Product Product;
+
 
 	public ProductDto() {		
 	}
 
-	
-	public Product getProduct() {
-		return Product;
+
+	public long getProduct_id() {
+		return product_id;
 	}
 
-	public void setProduct(Product product) {
-		Product = product;
+	public void setProduct_id(long product_id) {
+		this.product_id = product_id;
+	}
+
+	public String getCurrency() {
+		return Currency;
 	}
 
 
-	public long getId() {
-		return id;
+	public void setCurrency(String currency) {
+		Currency = currency;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -59,13 +60,17 @@ public class ProductDto extends RequestBaseDto{
 		this.price = price;
 	}
 
-	public String getCurrency() {
-		return currency;
+	
+
+	public String getCurrencyISOCode() {
+		return CurrencyISOCode;
 	}
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
+
+	public void setCurrencyISOCode(String currencyISOCode) {
+		CurrencyISOCode = currencyISOCode;
 	}
+
 
 	public int getStock() {
 		return stock;
@@ -83,37 +88,47 @@ public class ProductDto extends RequestBaseDto{
 		this.category_id = category_id;
 	}
 
-	public String getLot_number() {
-		return lot_number;
+	
+
+	public String getLotNumber() {
+		return lotNumber;
 	}
 
-	public void setLot_number(String lot_number) {
-		this.lot_number = lot_number;
+
+	public void setLotNumber(String lotNumber) {
+		this.lotNumber = lotNumber;
 	}
 
-	public String getSanitary_registration_number() {
-		return sanitary_registration_number;
+
+	public String getSanitaryRegistrationNumber() {
+		return sanitaryRegistrationNumber;
 	}
 
-	public void setSanitary_registration_number(String sanitary_registration_number) {
-		this.sanitary_registration_number = sanitary_registration_number;
+
+	public void setSanitaryRegistrationNumber(String sanitaryRegistrationNumber) {
+		this.sanitaryRegistrationNumber = sanitaryRegistrationNumber;
 	}
 
-	public Date getLot_registration_datenumber() {
-		return lot_registration_datenumber;
+
+	public Date getRegistrationDate() {
+		return registrationDate;
 	}
 
-	public void setLot_registration_datenumber(Date lot_registration_datenumber) {
-		this.lot_registration_datenumber = lot_registration_datenumber;
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
-	public Date getExpiration_date() {
-		return expiration_date;
+
+	public Date getExpirationDate() {
+		return expirationDate;
 	}
 
-	public void setExpiration_date(Date expiration_date) {
-		this.expiration_date = expiration_date;
+
+	public void setExpirationDate(Date expirationDate) {
+		this.expirationDate = expirationDate;
 	}
+
 
 	public int getStatus() {
 		return status;
