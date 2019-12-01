@@ -15,11 +15,14 @@ app\salesorderdetall\application\dao\SalesorderdetallDAO.class
 app\salesorder\application\assembler\SalesorderCreateAssembler$4.class
 app\salesorder\application\dto\SalesorderListDto.class
 app\salesorderdetall\application\assembler\SalesorderdetallCreateAssembler.class
+app\product\application\service\ProductService.class
 app\employee\aplication\dto\EmployeeCreateDto.class
 app\employee\aplication\assembler\EmployeeCreateAssembler$2.class
 app\common\application\enumeration\RequestBodyType$2.class
+app\product\application\dto\ProductListDto.class
 app\purchaseorder\application\assembler\PurchaseCreateAssembler.class
 app\common\application\enumeration\RequestBodyType.class
+app\product\application\dto\ProductListAllDto.class
 app\salesorder\application\assembler\SalesorderCreateAssembler$5.class
 app\salesorder\application\dao\ISalesorderDAO.class
 app\pucharseorderdetall\application\assembler\PurchaseorderdetallCreateAssembler.class

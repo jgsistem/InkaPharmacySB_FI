@@ -9,6 +9,7 @@ G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\common\infrastructure\persist
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\salesorder\application\dto\SalesorderAllCreateDto.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\common\domain\sender\Sender.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\purchaseorder\application\dto\PurchaseListDto.java
+G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\product\application\service\ProductService.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\common\application\ApiResponseHandler.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\product\domain\entity\Product.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\common\application\Notification.java
@@ -49,8 +50,10 @@ G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\employee\aplication\dto\Emplo
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\pucharseorderdetall\application\dto\PurchaseorderdetallListDto.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\pucharseorderdetall\application\dao\PurchaseorderdetallDAO.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\salesorder\application\service\SalesorderService.java
+G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\product\application\dto\ProductListAllDto.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\Application.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\pucharseorderdetall\application\dao\IPurchaseorderdetallDAO.java
+G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\product\application\dto\ProductListDto.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\salesorder\api\controller\SalesorderController.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\common\application\dto\ApiStringResponseDto.java
 G:\Gustavo\DDM\InkaPharmacySB_FI\src\main\java\app\common\application\dto\RequestBaseDto.java
