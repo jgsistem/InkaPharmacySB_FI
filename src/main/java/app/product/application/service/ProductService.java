@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import app.product.application.dto.ProductDto;
 import app.product.domain.entity.Product;
 import app.salesorder.application.dao.SalesorderDAO;
+import app.salesorderdetall.domain.entity.Saleorderdetall;
 
 @Service
 public class ProductService {
@@ -19,24 +20,28 @@ public class ProductService {
 	SalesorderDAO salesorderDAO;
 	
 	@Transactional
-	public ResponseEntity<Object> DescuentoStock(ProductDto productDto) throws Exception {
-
+	public ResponseEntity<Object> DescuentoStock( List<ProductDto> productDtoList) throws Exception {
 		List<Product> listaProducto =  new ArrayList<Product>();		
-		Product product = new Product();
-		product.setProduct_id(productDto.getProduct_id());
-		product.setCategory_id(productDto.getCategory_id());
-		product.setName(productDto.getName());
-		product.setPrice(productDto.getPrice());
-		product.setCurrencyISOCode(productDto.getCurrencyISOCode());
-		product.setStock(productDto.getStock());	
-		product.setLotNumber(productDto.getLotNumber());
-		product.setSanitaryRegistrationNumber(productDto.getSanitaryRegistrationNumber());
-		product.setRegistrationDate(productDto.getRegistrationDate());
-		product.setExpirationDate(productDto.getExpirationDate());
-		product.setStatus(productDto.getStatus());
-		product.setStock_status(productDto.getStock_status());
-		listaProducto.add(product);
-		
+		for (ProductDto productDto:productDtoList) {
+			Product product = new Product();			
+			product.setProduct_id(productDto.getProductid());
+			product.setCategory_id(productDto.getCategory_id());
+			product.setName(productDto.getName());
+			product.setPrice(productDto.getPrice());
+			product.setCurrencyISOCode(productDto.getCurrencyISOCode());
+			product.setStock(productDto.getStock());
+			System.out.println("input Stock:" + productDto.getStock());
+			product.setLotNumber(productDto.getLotNumber());
+			product.setSanitaryRegistrationNumber(productDto.getSanitaryRegistrationNumber());
+			product.setRegistrationDate(productDto.getRegistrationDate());
+			product.setExpirationDate(productDto.getExpirationDate());
+			product.setStatus(productDto.getStatus());
+			product.setStock_status(productDto.getStock_status());
+			
+			listaProducto.add(product);
+			}
+			
+				
 		Iterator<Product> itProductActualiza = listaProducto.iterator();
 		
 		while (itProductActualiza.hasNext())			
@@ -45,7 +50,9 @@ public class ProductService {
 			Product Productlis = new Product();
 			Productlis.setProduct_id(productActu.getProduct_id());						
 			Product listadoProBD = salesorderDAO.getIdProduct(productActu.getProduct_id(),productActu.getStock());			
-			Productlis.setStock(listadoProBD.getStock() - productActu.getStock());			
+			Productlis.setStock(listadoProBD.getStock() - productActu.getStock());
+			System.out.println("BD Stock:" + listadoProBD.getStock());
+			System.out.println("input Stock:" + productActu.getStock());
 			 salesorderDAO.updateProducto(Productlis);	
 		}				
 			return ResponseEntity.ok().body("ok");		

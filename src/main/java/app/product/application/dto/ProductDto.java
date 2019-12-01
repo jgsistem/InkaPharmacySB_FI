@@ -1,13 +1,13 @@
 package app.product.application.dto;
 
 import java.util.Date;
-
+import java.util.List;
 import app.common.application.dto.RequestBaseDto;
 import app.product.domain.entity. Product;
 
 public class ProductDto extends RequestBaseDto{
 
-	private long product_id;
+	private long productid;
 	private String name;
 	private Double price;
 	private String Currency;
@@ -22,17 +22,26 @@ public class ProductDto extends RequestBaseDto{
 	private int stock_status;
 
 
+
 	public ProductDto() {		
 	}
 
 
-	public long getProduct_id() {
-		return product_id;
+	public long getProductid() {
+		return productid;
 	}
 
-	public void setProduct_id(long product_id) {
-		this.product_id = product_id;
+
+
+
+
+	public void setProductid(long productid) {
+		this.productid = productid;
 	}
+
+
+
+
 
 	public String getCurrency() {
 		return Currency;

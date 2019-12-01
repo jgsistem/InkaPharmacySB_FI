@@ -1,5 +1,7 @@
 package app.product.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import app.common.application.Notification;
 import app.common.application.UnitOfWork;
 import app.common.application.enumeration.RequestBodyType;
 import app.product.application.dto.ProductDto;
+import app.product.application.dto.ProductListAllDto;
+import app.product.application.dto.ProductListDto;
 import app.product.application.service.ProductService;
 
 @RestController
@@ -31,13 +35,15 @@ public class ProductController {
 	
 	@CrossOrigin(origins = "*")
 	@RequestMapping(method = RequestMethod.POST, path = "/stock", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-	public ResponseEntity<Object> DescuentoStock(@RequestBody ProductDto productDto) throws Exception {
+	public ResponseEntity<Object> DescuentoStock(@RequestBody List<ProductDto> productDto) throws Exception {
 		boolean status = false;
 		try {
-			Notification notification = this.validation(productDto);
-			if (notification.hasErrors()) {
-				throw new IllegalArgumentException(notification.errorMessage());
-			}			
+			//Notification notification = this.validation(productDto);
+		//	if (notification.hasErrors()) {
+			//	throw new IllegalArgumentException(notification.errorMessage());
+			//}			
+		
+			System.out.println("lista:" + productDto.size());
 			return new ResponseEntity<Object>(productService.DescuentoStock(productDto),
 					HttpStatus.CREATED);
 		} catch (IllegalArgumentException ex) {
@@ -51,7 +57,15 @@ public class ProductController {
 		}
 	}
 	
-	private Notification validation(ProductDto productDto) {
+	private Notification validation(List<ProductDto> productDto) {
+		Notification notification = new Notification();
+		//if (productDto == null || productDto.getRequestBodyType() == RequestBodyType.INVALID) {
+			//notification.addError("Invalid JSON data in request body.");
+		//}
+		return notification;
+	}
+	
+	private Notification validation(ProductListAllDto productDto) {
 		Notification notification = new Notification();
 		if (productDto == null || productDto.getRequestBodyType() == RequestBodyType.INVALID) {
 			notification.addError("Invalid JSON data in request body.");

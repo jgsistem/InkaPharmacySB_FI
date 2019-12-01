@@ -116,15 +116,12 @@ public class SalesorderService {
 			Productlis.setProduct_id(productActu.getProduct_id());						
 			Product listadoProBD = salesorderDAO.getIdProduct(productActu.getProduct_id(),productActu.getStock());			
 			Productlis.setStock(listadoProBD.getStock() - productActu.getStock());			
-			 salesorderDAO.updateProducto(Productlis);	
-		}		
-		
-		   	    
+		//	 salesorderDAO.updateProducto(Productlis);	
+		}	 
 			salesorder.setSalesorderdetall(saleorderdetall);		
 			int intOrder = salesorderDAO.saveSaveorderAll(salesorder);		
-			salesorderDAO.saveSaveorderdAll(saleorderdetall,intOrder);	
-			
-			return ResponseEntity.ok().body("ok");		
+			salesorderDAO.saveSaveorderdAll(saleorderdetall,intOrder);				
+			return ResponseEntity.ok().body("ok");	
 	}
 	
 
