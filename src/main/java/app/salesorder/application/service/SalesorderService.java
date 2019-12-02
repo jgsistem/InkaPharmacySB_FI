@@ -82,7 +82,45 @@ public class SalesorderService {
 	
 	@Transactional
 	public ResponseEntity<Object> salesordercreateall(SalesorderAllCreateDto salesorderCreateDtoall) throws Exception {
-
+		SalesorderAll salesorder = new SalesorderAll();
+		salesorder.setSale_date(obtenerFechaActual());
+		salesorder.setCustomer_id(salesorderCreateDtoall.getCustomer_id());
+		salesorder.setEmployee_id(salesorderCreateDtoall.getEmployee_id());
+		salesorder.setStatus(salesorderCreateDtoall.getStatus());			
+		List<Saleorderdetall> saleorderdetall = new ArrayList<>();		
+		List<Product> listaProducto =  new ArrayList<Product>();		
+		for (Saleorderdetall purchaseorderdetallListDtou : salesorderCreateDtoall.getSalesorderdetall()) {		
+			Saleorderdetall purchaseorderdetallListDtoTem = new Saleorderdetall();	
+			Product Productlis = new Product();			
+			purchaseorderdetallListDtoTem.setSale_order_id(purchaseorderdetallListDtou.getSale_order_id());
+			purchaseorderdetallListDtoTem.setProduct_id(purchaseorderdetallListDtou.getProduct_id());
+			purchaseorderdetallListDtoTem.setQuantity(purchaseorderdetallListDtou.getQuantity());
+			purchaseorderdetallListDtoTem.setPrice(purchaseorderdetallListDtou.getPrice());
+			purchaseorderdetallListDtoTem.setCurrency(purchaseorderdetallListDtou.getCurrency());
+			purchaseorderdetallListDtoTem.setStatus(purchaseorderdetallListDtou.getStatus());							
+			Productlis.setProduct_id(purchaseorderdetallListDtou.getProduct_id());
+			Productlis.setStock(purchaseorderdetallListDtou.getQuantity());			
+			listaProducto.add(Productlis);			
+			saleorderdetall.add(purchaseorderdetallListDtoTem);		
+		}
+		Iterator<Product> itProductActualiza = listaProducto.iterator();	
+		while (itProductActualiza.hasNext())			
+		{
+			Product productActu = itProductActualiza.next();
+			Product Productlis = new Product();
+			Productlis.setProduct_id(productActu.getProduct_id());						
+			Product listadoProBD = salesorderDAO.getIdProduct(productActu.getProduct_id(),productActu.getStock());			
+			Productlis.setStock(listadoProBD.getStock() - productActu.getStock());			
+		   salesorderDAO.updateProducto(Productlis);	
+		}	 
+			salesorder.setSalesorderdetall(saleorderdetall);		
+			int intOrder = salesorderDAO.saveSaveorderAll(salesorder);		
+			salesorderDAO.saveSaveorderdAll(saleorderdetall,intOrder);				
+			return ResponseEntity.ok().body("ok");	
+	}
+	
+	@Transactional
+	public ResponseEntity<Object> salesordercreatem(SalesorderAllCreateDto salesorderCreateDtoall) throws Exception {
 		SalesorderAll salesorder = new SalesorderAll();
 		salesorder.setSale_date(obtenerFechaActual());
 		salesorder.setCustomer_id(salesorderCreateDtoall.getCustomer_id());
@@ -105,10 +143,7 @@ public class SalesorderService {
 			listaProducto.add(Productlis);			
 			saleorderdetall.add(purchaseorderdetallListDtoTem);		
 		}	
-		
-		//List<Product> listaProductoF =  new ArrayList<Product>();
-		Iterator<Product> itProductActualiza = listaProducto.iterator();
-	
+		Iterator<Product> itProductActualiza = listaProducto.iterator();	
 		while (itProductActualiza.hasNext())			
 		{
 			Product productActu = itProductActualiza.next();
@@ -116,7 +151,7 @@ public class SalesorderService {
 			Productlis.setProduct_id(productActu.getProduct_id());						
 			Product listadoProBD = salesorderDAO.getIdProduct(productActu.getProduct_id(),productActu.getStock());			
 			Productlis.setStock(listadoProBD.getStock() - productActu.getStock());			
-		//	 salesorderDAO.updateProducto(Productlis);	
+			// salesorderDAO.updateProducto(Productlis);	
 		}	 
 			salesorder.setSalesorderdetall(saleorderdetall);		
 			int intOrder = salesorderDAO.saveSaveorderAll(salesorder);		

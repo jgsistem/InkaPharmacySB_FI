@@ -104,6 +104,28 @@ public class SalesorderController {
 	}
 	
 	@CrossOrigin(origins = "*")
+	@RequestMapping(method = RequestMethod.POST, path = "/ordervm", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+	public ResponseEntity<Object> CreateM(@RequestBody SalesorderAllCreateDto salesorderCreateDtoAll) throws Exception {
+		boolean status = false;
+		try {
+			Notification notification = this.validation2(salesorderCreateDtoAll);
+			if (notification.hasErrors()) {
+				throw new IllegalArgumentException(notification.errorMessage());
+			}			
+			return new ResponseEntity<Object>(salesorderService.salesordercreatem(salesorderCreateDtoAll),
+					HttpStatus.CREATED);
+		} catch (IllegalArgumentException ex) {
+			unitOfWork.rollback(status);
+			return new ResponseEntity<Object>(apiResponseHandler.getApplicationError(ex.getMessage()),
+					HttpStatus.BAD_REQUEST);
+		} catch (Exception ex) {
+			unitOfWork.rollback(status);
+			return new ResponseEntity<Object>(apiResponseHandler.getApplicationException(),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@CrossOrigin(origins = "*")
 	@RequestMapping(method = RequestMethod.POST, path = "/order", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 	public ResponseEntity<Object> Create(@RequestBody SalesorderCreateDto salesorderCreateDto) throws Exception {
 		boolean status = false;
